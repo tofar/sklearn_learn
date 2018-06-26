@@ -102,8 +102,9 @@ def translate_team_name(name):
     else:
         return translate_dict[name]
 
-def translate_season_to_fifa(season):
-    return f'fifa{str(season)[-2:]}'
+# def translate_season_to_fifa(season):
+#     return f'fifa{str(season)[-2:]}'
+
 
 def download_url(url):
     request = urllib.request.Request(url, headers={'user-agent':'Mozilla/5.0'})

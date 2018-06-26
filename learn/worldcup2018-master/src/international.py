@@ -13,7 +13,7 @@ intermediate_data = data_dir / 'intermediate'
 class DownloadInternationalRatings(luigi.Task):
     """Download most current FIFA 18 ratings for International teams"""
     pages = 2
-
+ 
     def output(self):
         paths = [str(raw_data / f'international_ratings_{ii}.html')
                  for ii in range(1, self.pages+1)]

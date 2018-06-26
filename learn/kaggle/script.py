@@ -37,9 +37,18 @@
 import numpy as np  # linear algebra
 import pandas as pd  # data processing, CSV file I/O (e.g. pd.read_csv)
 from matplotlib import pyplot as plt
+import networkx as nx
+# import pydot
+from networkx.drawing.nx_pydot import graphviz_layout
+from sklearn import linear_model
+# from sklearn import ensemble
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix, roc_curve, roc_auc_score
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import PolynomialFeatures
+from itertools import combinations
 
-rankings = pd.read_csv(
-    './data/fifa_ranking.csv')
+rankings = pd.read_csv('./data/fifa_ranking.csv')
 rankings = rankings.loc[:, [
     'rank', 'country_full', 'country_abrv', 'cur_year_avg_weighted',
     'rank_date', 'two_year_ago_weighted', 'three_year_ago_weighted'
@@ -49,13 +58,11 @@ rankings[
     'weighted_points'] = rankings['cur_year_avg_weighted'] + rankings['two_year_ago_weighted'] + rankings['three_year_ago_weighted']
 rankings['rank_date'] = pd.to_datetime(rankings['rank_date'])
 
-matches = pd.read_csv(
-    './data/results.csv')
+matches = pd.read_csv('./data/results.csv')
 matches = matches.replace({'Germany DR': 'Germany', 'China': 'China PR'})
 matches['date'] = pd.to_datetime(matches['date'])
 
-world_cup = pd.read_csv(
-    './data/World Cup 2018 Dataset.csv')
+world_cup = pd.read_csv('./data/World Cup 2018 Dataset.csv')
 world_cup = world_cup.loc[:, [
     'Team', 'Group', 'First match \nagainst', 'Second match\n against',
     'Third match\n against'
@@ -125,13 +132,6 @@ matches = matches.join(pd.get_dummies(matches['wc_participant']))
 # I used a simple Logistic regression, which yielded already rather good performance
 
 # In[4]:
-
-from sklearn import linear_model
-from sklearn import ensemble
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import confusion_matrix, roc_curve, roc_auc_score
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import PolynomialFeatures
 
 X, y = matches.loc[:, [
     'average_rank', 'rank_difference', 'point_difference', 'is_stake'
@@ -212,8 +212,6 @@ world_cup_rankings = rankings.loc[
 world_cup_rankings = world_cup_rankings.set_index(['country_full'])
 
 # In[7]:
-
-from itertools import combinations
 
 opponents = [
     'First match \nagainst', 'Second match\n against', 'Third match\n against'
@@ -315,10 +313,6 @@ for f in finals:
 # # Let's see a visualization
 
 # In[ ]:
-
-import networkx as nx
-import pydot
-from networkx.drawing.nx_pydot import graphviz_layout
 
 node_sizes = pd.DataFrame(list(reversed(odds)))
 scale_factor = 0.3  # for visualization

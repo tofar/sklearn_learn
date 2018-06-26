@@ -36,6 +36,7 @@ for i in range(len(results['home_team'])):
         winner.append(results['away_team'][i])
     else:
         winner.append('Draw')
+
 results['winning_team'] = winner
 
 # adding goal difference column
@@ -58,6 +59,7 @@ nigeria.head()
 year = []
 for row in nigeria['date']:
     year.append(int(row[:4]))
+
 nigeria['match_year'] = year
 nigeria_1930 = nigeria[nigeria.match_year >= 1930]
 nigeria_1930.count()
@@ -71,6 +73,7 @@ for row in nigeria_1930['winning_team']:
         wins.append('Loss')
     else:
         wins.append(row)
+
 winsdf = pd.DataFrame(wins, columns=['Nigeria_Results'])
 
 # plotting
@@ -251,6 +254,7 @@ for i in range(fixtures.shape[0]):
         print("Draw")
     elif predictions[i] == 0:
         print("Winner: " + backup_pred_set.iloc[i, 0])
+
     print('Probability of ' + backup_pred_set.iloc[i, 1] + ' winning: ',
           '%.3f' % (logreg.predict_proba(pred_set)[i][2]))
     print('Probability of Draw: ',
