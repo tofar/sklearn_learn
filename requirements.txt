@@ -6,3 +6,6 @@ sklearn
 pydot
 pydot-ng
 graphviz
+scipy
+seaborn
+mlxtend

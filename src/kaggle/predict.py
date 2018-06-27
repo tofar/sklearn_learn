@@ -1,18 +1,20 @@
+#!/usr/bin/env python3.6
 # coding: utf-8
 
+from itertools import combinations
+
+import networkx as nx
 import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
-import networkx as nx
 from networkx.drawing.nx_pydot import graphviz_layout
 from sklearn import linear_model
+from sklearn.metrics import confusion_matrix, roc_auc_score, roc_curve
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import confusion_matrix, roc_curve, roc_auc_score
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import PolynomialFeatures
-from itertools import combinations
 
-rankings = pd.read_csv('./data/fifa_ranking.csv')
+rankings = pd.read_csv('./data/FIFA_Ranking.csv')
 rankings = rankings.loc[:, [
     'rank', 'country_full', 'country_abrv', 'cur_year_avg_weighted',
     'rank_date', 'two_year_ago_weighted', 'three_year_ago_weighted'
@@ -26,7 +28,7 @@ matches = pd.read_csv('./data/results.csv')
 matches = matches.replace({'Germany DR': 'Germany', 'China': 'China PR'})
 matches['date'] = pd.to_datetime(matches['date'])
 
-world_cup = pd.read_csv('./data/World Cup 2018 Dataset.csv')
+world_cup = pd.read_csv('./data/WorldCup2018Dataset.csv')
 world_cup = world_cup.loc[:, [
     'Team', 'Group', 'First match \nagainst', 'Second match\n against',
     'Third match\n against'

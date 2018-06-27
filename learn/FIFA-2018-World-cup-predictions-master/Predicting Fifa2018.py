@@ -42,7 +42,6 @@ results['goal_difference'] = np.absolute(
     results['home_score'] - results['away_score'])
 
 results.head()
-
 #  In[6]:
 
 # lets work with a subset of the data one that includes games played by Nigeria in a Nigeria dataframe
