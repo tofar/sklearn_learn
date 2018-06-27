@@ -1,47 +1,11 @@
 # coding: utf-8
 
-# # Predicting the winner of the 2018 FIFA World Cup
-# **Aim**:
-# to predict the outcome of the FIFA World Cup 2018
-#
-#  **Method**:
-# - Use data from Kaggle to model the outcome of certain pairings between teams, given their rank, points, and the weighted point difference with the opponent.
-# - Use this model to predict the outcome of the group rounds and then the single-elimination phase
-#
-# **Summary**
-# According to the analysis below, the team that will win the World Cup is the [underdog according to the bookies](https://www.oddschecker.com/football/world-cup/winner): Germany . But this is not the only interesting thing you can observe. If [not interested in the data munging part](https://ih1.redbubble.net/image.441592463.7099/sticker,375x360-bg,ffffff.u1.png) head to the last section (Visualization) and see the single-elimination phase. To make the story more interesting for the sport lovers, I report fair odds (i.e. fair market, without bookmaker margin) instead of the raw probability output.
-#
-# Couple things to note,
-# - it seems Egypt qualifies to the best 16 and their match with Portugal is the safest bet in the phase.
-# - In this simulation, Brasil cannot make it through Belgium.. I'm sure here many would consider otherwise
-# - It seems that neither CRonaldo (POR) nor LMessi (ARG) is going to play in the final but they are going to play against each other in the quarterfinals...
-#
-# All in all, I'm looking forward to the tournament! Place your bets and get ready you too!
-#
-# Cheers!
-
-# # Data I/O
-#
-# I use three datasets
-# - FIFA rankings from 1993 to 2018 (courtesy of [Tadhg Fitzgerald](https://www.kaggle.com/tadhgfitzgerald)
-# > This one I used to get the FIFA ranking and points for the teams, which is a monthly changing rank previously shown as a [decent predictor](http://www.sportingintelligence.com/2014/06/20/upsets-giant-killings-adios-bye-bye-fifa-rankings-still-ahead-in-predicting-results-200601/) of team performance
-# - International Soccer matches from 1872 to 2018 (courtesy of [Mart Jürisoo](https://www.kaggle.com/martj42))
-# > This I will use to find out how much the difference in point, ranks and the current rank of the team affects the outocme of a match
-# - FIFA World Cup 2018 data set (courtesy of [Nuggs](https://www.kaggle.com/ahmedelnaggar))
-# > This I will use to get the upcoming matches
-#
-# Comment: Right when reading the datafiles I take care of the renaming of the Countries because there is some mismatch in the sources
-
-# In[1]:
-
-import numpy as np  # linear algebra
-import pandas as pd  # data processing, CSV file I/O (e.g. pd.read_csv)
+import numpy as np
+import pandas as pd
 from matplotlib import pyplot as plt
 import networkx as nx
-# import pydot
 from networkx.drawing.nx_pydot import graphviz_layout
 from sklearn import linear_model
-# from sklearn import ensemble
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, roc_curve, roc_auc_score
 from sklearn.pipeline import Pipeline
@@ -170,7 +134,8 @@ ax.set_xlabel('Predicted label')
 ax.set_title('Performance on the Training set')
 pass
 
-# I consider this pretty good performance, minding that soccer matches have typically only few goals scored and therefore making their outcome even more unpredictable. Nevertheless, let's look at the bad predictions and see where we are making mistakes more often.
+# I consider this pretty good performance, minding that soccer matches have typically only few goals scored and therefore making their outcome even more unpredictable. Nevertheless,
+# let's look at the bad predictions and see where we are making mistakes more often.
 
 # In[5]:
 

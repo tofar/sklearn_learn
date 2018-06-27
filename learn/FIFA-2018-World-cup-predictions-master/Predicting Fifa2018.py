@@ -6,15 +6,13 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-#  import matplotlib.ticker as ticker
-#  import matplotlib.ticker as plticker
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 
-#  In[2]:
+#  In[2]:s
 
 #  load data
-world_cup = pd.read_csv('datasets/World Cup 2018 Dataset.csv')
+world_cup = pd.read_csv('datasets/WorldCup2018Dataset.csv')
 results = pd.read_csv('datasets/results.csv')
 
 #  In[3]:
@@ -183,7 +181,7 @@ print("Test set accuracy: ", '%.3f' % (score2))
 # since there are no "home" or "away" teams in World Cup games.
 
 #  Loading new datasets
-ranking = pd.read_csv('datasets/fifa_rankings.csv')
+ranking = pd.read_csv('datasets/FIFA_Rankings.csv')
 fixtures = pd.read_csv('datasets/fixtures.csv')
 
 #  List for storing the group stage games
@@ -262,14 +260,6 @@ for i in range(fixtures.shape[0]):
     print('Probability of ' + backup_pred_set.iloc[i, 0] + ' winning: ',
           '%.3f' % (logreg.predict_proba(pred_set)[i][0]))
     print("")
-
-#  In[63]:
-
-#  List of tuples before
-group_16 = [('Uruguay', 'Portugal'), ('France', 'Croatia'),
-            ('Brazil', 'Mexico'), ('England', 'Colombia'), ('Spain', 'Russia'),
-            ('Argentina', 'Peru'), ('Germany', 'Switzerland'), ('Poland',
-                                                                'Belgium')]
 
 #  In[64]:
 
@@ -353,6 +343,13 @@ def clean_and_predict(matches, ranking, final, logreg):
         print("")
 
 
+#  In[63]:
+
+#  List of tuples before
+group_16 = [('Uruguay', 'Portugal'), ('France', 'Croatia'),
+            ('Brazil', 'Mexico'), ('England', 'Colombia'), ('Spain', 'Russia'),
+            ('Argentina', 'Peru'), ('Germany', 'Switzerland'), ('Poland',
+                                                                'Belgium')]
 #  In[65]:
 
 clean_and_predict(group_16, ranking, final, logreg)
