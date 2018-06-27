@@ -14,6 +14,7 @@ def get_results(path):
 
     # world_cup.head()
     print(results.head())
+    print("")
 
     #  Adding goal difference and establishing who is the winner
     winner = []
@@ -32,6 +33,7 @@ def get_results(path):
         results['home_score'] - results['away_score'])
 
     print(results.head())
+    print("")
     return results
 
 
@@ -58,7 +60,7 @@ def get_wordcup_data(worldcup_teams, data):
     return df_teams
 
 
-def process_df_teams_data(df_teams):
+def process_teams_data(df_teams):
     """
         预处理世界杯32强数据，选出我想要的数据
     """
@@ -93,7 +95,6 @@ def process_df_teams_data(df_teams):
     df_teams_1930.head()
 
     # convert home team and away team from categorical variables to continous inputs
-    #  Get dummy variables
     final = pd.get_dummies(
         df_teams_1930,
         prefix=['home_team', 'away_team'],
@@ -117,6 +118,7 @@ def get_game_schedule(csv_path, ranking):
     #  第一轮一共 48 场，每个小组 6 场
     game_schedule = game_schedule.iloc[:48, :]
     print(game_schedule.tail())
+    print("")
 
     return game_schedule
 

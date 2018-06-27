@@ -331,5 +331,3 @@ texts = ((10, 'Best 16', 'black'), (70, 'Quarter-\nfinal', 'blue'),
 plt.axis('equal')
 plt.title('Single-elimination phase\npredictions with fair odds', fontsize=20)
 plt.show()
-
-# Fin

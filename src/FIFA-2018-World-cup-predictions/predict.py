@@ -4,16 +4,12 @@
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.cross_validation import train_test_split
-from pre_process import get_results, get_wordcup_data, process_df_teams_data, get_game_schedule, clean_and_predict
+from pre_process import get_results, get_wordcup_data, process_teams_data, get_game_schedule, clean_and_predict
 
 #  读取数据
 results = get_results('./datasets/results.csv')
 
-#  wins is a good metric to analyze and predict outcomes of matches in the tournament
-# tournament and venue won't add much to our predictions
-# historical match records will be used
-
-# narrowing to team patcipating in the world cup
+# 世界杯32强
 worldcup_teams = [
     'Australia', ' Iran', 'Japan', 'Korea Republic', 'Saudi Arabia', 'Egypt',
     'Morocco', 'Nigeria', 'Senegal', 'Tunisia', 'Costa Rica', 'Mexico',
@@ -22,69 +18,59 @@ worldcup_teams = [
     'Portugal', 'Russia', 'Serbia', 'Spain', 'Sweden', 'Switzerland'
 ]
 
-df_teams = get_wordcup_data(worldcup_teams, results)
+teams_data = get_wordcup_data(worldcup_teams, results)
 
-final = process_df_teams_data(df_teams)
+final = process_teams_data(teams_data)
 
-# adding Fifa rankings
-# the team which is positioned higher on the FIFA Ranking will be considered "favourite" for the match
-# and therefore, will be positioned under the "home_teams" column
-# since there are no "home" or "away" teams in World Cup games.
-
-#  Loading new datasets
+# 读取历史排名数据
 ranking = pd.read_csv('./datasets/FIFA_Rankings.csv')
+# 获取2018世界杯赛程
 game_schedule = get_game_schedule('./datasets/Schedule.csv', ranking)
 
-#  List for storing the group stage games
+#  预测数据集
 pred_set = []
 
-#  Loop to add teams to new prediction dataset based on the ranking position of each team
+#  如果历史排名高的话则置于 home_team
 for index, row in game_schedule.iterrows():
     if row['first_position'] < row['second_position']:
         pred_set.append({
             'home_team': row['Home Team'],
             'away_team': row['Away Team'],
-            'winning_team': None
         })
     else:
         pred_set.append({
             'home_team': row['Away Team'],
             'away_team': row['Home Team'],
-            'winning_team': None
         })
 
 pred_set = pd.DataFrame(pred_set)
 backup_pred_set = pred_set
 
-#  Get dummy variables and drop winning_team column
+#  将数据横铺, 并取出冗余
 pred_set = pd.get_dummies(
     pred_set,
     prefix=['home_team', 'away_team'],
     columns=['home_team', 'away_team'])
 
-#  Add missing columns compared to the model's training dataset
+#  合并
 missing_cols = set(final.columns) - set(pred_set.columns)
 for c in missing_cols:
     pred_set[c] = 0
+
 pred_set = pred_set[final.columns]
-
-#  Remove winning team column
 pred_set = pred_set.drop(['winning_team'], axis=1)
-
-# 逻辑回归
+# 线性逻辑回归
 logreg = LogisticRegression(C=1000.0, random_state=100)
-#  Separate X and Y sets
+
 X = final.drop(['winning_team'], axis=1)
 Y = final["winning_team"]
 Y = Y.astype('int')
 
-#  Separate train and test sets
+# 按照 1:9 分割测试和训练数据
 X_train, X_test, Y_train, Y_test = train_test_split(
-    X, Y, test_size=0.30, random_state=42)
+    X, Y, test_size=0.10, random_state=100)
 
 logreg.fit(X_train, Y_train)
-
-# group matches
 predictions = logreg.predict(pred_set)
 for i in range(game_schedule.shape[0]):
     print(backup_pred_set.iloc[i, 1] + " and " + backup_pred_set.iloc[i, 0])
