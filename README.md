@@ -222,4 +222,69 @@ X_train, X_test, Y_train, Y_test = train_test_split(
 
 [pandas](http://pandas.pydata.org/pandas-docs/stable/) 
 
-[机器学习-逻辑回归](https://blog.csdn.net/ligang_csdn/article/details/53838743)
+[机器学习-逻辑回归](https://blog.csdn.net/ligang_csdn/article/details/53838743) 
+
+## 八、附录
+
+### 1. 文件简介
+
++ src
+
+  代码及数据集
+
+  + datasets
+
+    数据集
+
+  + predict.py
+
+    用于预测世界杯的代码
+
+  + pre_process.py
+
+    数据预处理
+
+  + test.py
+
+    用于做一些小测试
+
++ README.md
+
+  报告
+
++ requirements.txt
+
+  依赖包
+
+### 2. 相关包简介
+
++ numpy
+
+  ​	NumPy是Python语言的一个扩展包。支持多维数组与矩阵运算，此外也针对数组运算提供大量的数学函数库。NumPy提供了与Matlab相似的功能与操作方式，因为两者皆为直译语言。
+
+  ​	NumPy通常与SciPy(Scientific Python)和Matplotlib(绘图库)一起使用，这种组合广泛用于替代Matlab，是一个流行的技术平台。
+
+  ​	NumPy中定义的最重要的对象是称为ndarray的N维数组类型。它描述相同类型的元素集合，可以使用基于零的索引访问集合中元素。基本的ndarray是使用NumPy中的数组函数创建的: numpy.array。
+
+  ​	NumPy支持比Python更多种类的数值类型。NumPy数值是dtype(数据类型)对象的实例，每个对象具有唯一的特征。
+
++ pandas
+
+  ​	Pandas 是python的一个数据分析包，最初由AQR Capital Management于2008年4月开发，并于2009年底开源出来，目前由专注于Python数据包开发的PyData开发team继续开发和维护，属于PyData项目的一部分。Pandas最初被作为金融数据分析工具而开发出来，因此，pandas为时间序列分析提供了很好的支持。 Pandas的名称来自于面板数据（panel data）和python数据分析（data analysis）。panel data是经济学中关于多维数据集的一个术语，在Pandas中也提供了panel的数据类型。 
+
++ sklearn
+
+  ​	Scikit-learn（以下简称sklearn）是开源的Python机器学习库，它基于Numpy和Scipy，提供了大量用于数据挖掘和分析的工具，包括数据预处理、交叉验证、算法与可视化算法等一系列接口。sklearn的官方网站是 http://scikit-learn.org/stable/，在上面可以找到相关的Scikit-Learn的资源，模块下载，文档，例程等。
+   sklearn的基本功能主要被分为六个部分，分类，回归，聚类，数据降维，模型选择，数据预处理，具体可以参考官方网站上的文档。
+
+  # 
+
+   
+
+   
+
+   
+
+   
+
+   
